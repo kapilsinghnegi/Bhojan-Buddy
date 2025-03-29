@@ -17,11 +17,10 @@ const RestaurantCard = props => {
   return (
     <div
       data-testid="resCard"
-      className="res-card m-2 p-4 w-72 h-84 rounded-lg font-semibold flex flex-col hover:shadow-lg transition-shadow duration-300"
+      className="res-card m-1 p-2 md:m-2 md:p-4 lg:m-4 lg:p-6 w-full max-w-xs md:max-w-sm lg:max-w-md rounded-lg font-semibold flex flex-col gap-y-2 hover:shadow-lg transition-shadow duration-300"
     >
       <div
-        className="relative res-logo h-40 w-full rounded-lg bg-cover 
-        bg-center mb-2 bg-gray-200"
+        className="relative res-logo w-full rounded-lg bg-cover bg-center bg-gray-200 h-24 md:h-32 lg:h-40"
         style={{
           backgroundImage: `url(${CDN_URL + cloudinaryImageId})`,
           boxShadow: "inset 0px 0px 30px 30px rgba(0, 0, 0, 0.4)",
@@ -29,20 +28,22 @@ const RestaurantCard = props => {
         alt="Restaurant Logo"
       >
         {aggregatedDiscountInfoV3 && (
-          <div className="text-white absolute bottom-1 font-extrabold text-lg left-2.5 ">
+          <div className="text-white absolute bottom-2 left-3 font-extrabold text-xs sm:text-sm md:text-base lg:text-lg">
             {aggregatedDiscountInfoV3.header +
               " " +
               aggregatedDiscountInfoV3.subHeader}
           </div>
         )}
       </div>
-      <h3 className="font-bold text-xl mb-1 line-clamp-1">{name}</h3>
-      <div className="flex items-center text-lg justify-between mb-1">
-        <h4 className="flex items-center justify-between rounded">
-          <div className="flex justify-center items-center bg-green-600 p-1 rounded-full mr-1">
+      <h3 className="font-bold text-sm sm:text-base md:text-lg lg:text-xl line-clamp-1">
+        {name}
+      </h3>
+      <div className="flex items-center justify-between">
+        <h4 className="flex items-center text-[10px] sm:text-sm md:text-base lg:text-lg">
+          <div className="flex justify-center items-center bg-green-600 sm:p-0.75 md:p-1 p-0.5 rounded-full mr-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-3"
+              className="w-1.5 sm:w-2 md:w-2.5"
               viewBox="0 0 26 26"
             >
               <path
@@ -54,10 +55,16 @@ const RestaurantCard = props => {
           {avgRating}&nbsp;
           <span className="font-normal">({totalRatingsString})</span>
         </h4>
-        <h4>{slaString}</h4>
+        <h4 className="text-[10px] sm:text-sm md:text-base lg:text-lg">
+          {slaString}
+        </h4>
       </div>
-      <h4 className="text-gray-500 mb-1 line-clamp-1">{cuisines.join(", ")}</h4>
-      <h4 className="text-gray-500 mb-1">{areaName}</h4>
+      <h4 className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-1">
+        {cuisines.join(", ")}
+      </h4>
+      <h4 className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-1">
+        {areaName}
+      </h4>
     </div>
   );
 };

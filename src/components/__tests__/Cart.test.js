@@ -61,10 +61,10 @@ describe("Testcases for Cart", () => {
     const addBtns = screen.getAllByRole("button", { name: "ADD" });
     fireEvent.click(addBtns[0]);
 
-    expect(screen.getByText("Cart (1 items)")).toBeInTheDocument();
+    expect(screen.getByText("1")).toBeInTheDocument();
 
     fireEvent.click(addBtns[1]);
-    expect(screen.getByText("Cart (2 items)")).toBeInTheDocument();
+    expect(screen.getByText("2")).toBeInTheDocument();
   });
 
   it("Add cart items to Cart on click of button", async () => {

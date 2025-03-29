@@ -39,7 +39,7 @@ Make sure you've enabled `CORS extension` installed in your browser while fetchi
 
 ## Features
 
-- Elegant Shimmer UI fro data loading
+- Elegant Shimmer UI for data loading
 - Fetch restaurants based on current location (Currently supports Delhi only)
 - Search for restaurants by name
 - Filter restaurants by top ratings

@@ -30,7 +30,7 @@ const AppLayout = () => {
       <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
         <div className="app flex flex-col min-h-screen">
           <Header />
-          <div className="flex-grow mt-32">
+          <div className="flex-grow mt-16 sm:mt-20 md:mt-24">
             <Outlet />
           </div>
           <Footer />

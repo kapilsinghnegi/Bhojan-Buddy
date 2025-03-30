@@ -11,10 +11,14 @@ const Header = () => {
   const { loggedInUser } = useContext(UserContext);
   const cartItems = useSelector(store => store.cart.items);
 
+  const homePageReload = () => {
+    document.location.reload();
+  };
+
   return (
     <div className="header fixed top-0 left-0 z-10 flex flex-nowrap justify-between items-center p-2 sm:p-3 w-full shadow-md bg-white">
       <div className="logo-container w-1/12 sm:w-16">
-        <Link to="/">
+        <Link to="/" onClick={homePageReload}>
           <img
             className="logo w-4/5 sm:w-3/4 md:w-full mx-2 sm:mx-5"
             src={LOGO_URL}
@@ -28,7 +32,9 @@ const Header = () => {
             Hello,&nbsp;{loggedInUser}!
           </li>
           <li className="hover:underline">
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/" onClick={homePageReload}>
+              Home
+            </NavLink>
           </li>
           <li className="hover:underline">
             <NavLink to="/about">About</NavLink>

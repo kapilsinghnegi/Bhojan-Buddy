@@ -5,6 +5,7 @@ import Shimmer from "./Shimmer.jsx";
 import RestaurantCard from "./RestaurantCard.jsx";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
 import UserContext from "../utils/UserContext.js";
+import UserOffline from "./UserOffline.jsx";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -22,35 +23,31 @@ const Body = () => {
     const res = await fetch(RESTAURANTS_API);
     const data = await res.json();
 
-    setListOfRestaurants(
-      data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurants(
-      data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+    const restaurants =
+      data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants;
+
+    if (restaurants) {
+      setListOfRestaurants(restaurants);
+      setFilteredRestaurants(restaurants);
+    } else {
+      console.error("Restaurants data not found in API response");
+      return null;
+    }
   }
+
+  const searchRestaurants = e => {
+    e.preventDefault();
+    const filteredRestaurants = listOfRestaurants.filter(res =>
+      res.info.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredRestaurants(filteredRestaurants);
+  };
 
   const onlineStatus = useOnlineStatus();
 
   // Offline Page
-  if (!onlineStatus)
-    return (
-      <div className="flex flex-col justify-center items-center space-y-2">
-        <h1 className="text-3xl mt-3 font-semibold">You are offline!</h1>
-        <h2 className="text-xl font-semibold px-10 m-5">
-          It seems there's a problem with your network. Please check your
-          internet connection.
-        </h2>
-        <button
-          className="px-4 py-2 font-semibold rounded-lg bg-black border-2 text-white transition-transform transform hover:scale-105"
-          onClick={() => {
-            document.location.reload();
-          }}
-        >
-          Try again
-        </button>
-      </div>
-    );
+  if (!onlineStatus) return <UserOffline />;
 
   // Loading Page
   return listOfRestaurants?.length === 0 ? (
@@ -64,11 +61,6 @@ const Body = () => {
           />
           <button className="search-btn w-1/5 sm:px-4 sm:py-2 px-2 py-1 sm:text-base text-xs text-white border-r-transparent bg-blue-500 hover:bg-blue-600 hover:border-transparent active:bg-blue-700 font-semibold cursor-pointer border-2 border-blue-500 rounded-r-md">
             Search
-          </button>
-        </div>
-        <div className="flex items-center font-semibold">
-          <button className="filter-btn px-4 py-2 text-xs sm:text-base bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-3xl transition-transform transform hover:scale-105 cursor-pointer">
-            Top Rated Restaurant
           </button>
         </div>
       </div>
@@ -90,13 +82,7 @@ const Body = () => {
           />
           <button
             className="search-btn w-1/5 sm:px-4 sm:py-2 px-2 py-1 sm:text-base text-xs text-white border-r-transparent bg-blue-500 hover:bg-blue-600 hover:border-transparent active:bg-blue-700 font-semibold cursor-pointer border-2 border-blue-500 rounded-r-md"
-            onClick={e => {
-              e.preventDefault();
-              const filteredRestaurants = listOfRestaurants.filter(res =>
-                res.info.name.toLowerCase().includes(searchText.toLowerCase())
-              );
-              setFilteredRestaurants(filteredRestaurants);
-            }}
+            onClick={e => searchRestaurants(e)}
           >
             Search
           </button>
@@ -124,7 +110,7 @@ const Body = () => {
             </label>
             &nbsp;
             <input
-              className="border-2 border-black rounded-md px-2 py-1 sm:px-4 sm:py-2 font-semibold text-xs sm:text-sm md:text-base lg:text-lg"
+              className="border-2 border-black rounded-md px-2 py-1 font-semibold text-xs sm:text-sm md:text-base lg:text-lg"
               placeholder="Type a username"
               onChange={e => {
                 setUserName(e.target.value);

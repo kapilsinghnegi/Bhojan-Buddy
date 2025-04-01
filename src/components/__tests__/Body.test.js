@@ -28,8 +28,6 @@ describe("Body Component Testcases", () => {
 
     const searchButton = screen.getByRole("button", { name: "Search" });
     const searchInput = screen.getByTestId("searchInput");
-    //   expect(searchInput).toBeInTheDocument();
-    //   expect(searchButton).toBeInTheDocument();
 
     fireEvent.change(searchInput, {
       target: {

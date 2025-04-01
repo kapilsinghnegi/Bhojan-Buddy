@@ -12,12 +12,12 @@ const Header = () => {
   const cartItems = useSelector(store => store.cart.items);
 
   const homePageReload = () => {
-    document.location.reload();
+    window.location.href = "/";
   };
 
   return (
     <div className="header fixed top-0 left-0 z-10 flex flex-nowrap justify-between items-center p-2 sm:p-3 w-full shadow-md bg-white">
-      <div className="logo-container w-1/12 sm:w-16">
+      <div className="logo-container w-1/12 sm:w-16 min-w-[36px]">
         <Link to="/" onClick={homePageReload}>
           <img
             className="logo w-4/5 sm:w-3/4 md:w-full mx-2 sm:mx-5"
@@ -42,10 +42,10 @@ const Header = () => {
           <li className="hover:underline">
             <Link to="/contact">Contact</Link>
           </li>
-          <li className="hover:underline flex">
+          <li className="hover:underline flex items-center">
             <Link to="/cart">
               <svg
-                className="sm:w-6 w-4"
+                className="sm:w-4 md:w-4.75 w-3.75 lg:w-5.5"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
@@ -55,15 +55,17 @@ const Header = () => {
               </svg>
             </Link>
             <span className="font-bold text-[8px] sm:text-xs text-black">
-              {cartItems.length}
+              ({cartItems.length} items)
             </span>
           </li>
           <li>
             <Link to="/">
               <button
-                className={`login rounded-md flex justify-center items-center text-xs px-2 py-1 sm:px-3 sm:py-1.5 sm:text-sm md:px-4 md:py-2 md:text-base text-white hover:${
-                  btnName === "Login" ? "bg-green-600" : "bg-red-600"
-                } ${btnName === "Login" ? "bg-green-500" : "bg-red-500"}`}
+                className={`login rounded-md flex justify-center items-center text-[10px] px-1.5 py-0.75 sm:px-2 sm:py-1 sm:text-xs md:px-2.5 md:py-1.25 md:text-sm lg:px-3 lg:py-1.5 lg:text-base text-white ${
+                  btnName === "Login"
+                    ? "bg-green-500 hover:bg-green-600"
+                    : "bg-red-500 hover:bg-red-600"
+                }`}
                 onClick={() => {
                   btnName === "Login"
                     ? setBtnName("Logout")

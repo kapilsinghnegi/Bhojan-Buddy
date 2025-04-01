@@ -17,16 +17,16 @@ const RestaurantCard = props => {
   return (
     <div
       data-testid="resCard"
-      className="res-card m-1 p-2 md:m-2 md:p-4 lg:m-4 lg:p-6 w-full max-w-xs md:max-w-sm lg:max-w-md rounded-lg font-semibold flex flex-col gap-y-2 hover:shadow-lg transition-shadow duration-300"
+      className="res-card m-1 p-2 md:m-2 md:p-4 lg:m-4 lg:p-6 w-full max-w-xs md:max-w-sm lg:max-w-md rounded-lg font-semibold flex flex-col gap-y-2 hover:scale-90 transition-transform duration-300"
     >
-      <div
-        className="relative res-logo w-full rounded-lg bg-cover bg-center bg-gray-200 h-24 md:h-32 lg:h-40"
-        style={{
-          backgroundImage: `url(${CDN_URL + cloudinaryImageId})`,
-          boxShadow: "inset 0px 0px 30px 30px rgba(0, 0, 0, 0.4)",
-        }}
-        alt="Restaurant Logo"
-      >
+      <div className="relative res-logo w-full rounded-lg bg-cover bg-center bg-gray-200 h-24 md:h-32 lg:h-40">
+        <img
+          className="object-cover w-full h-full rounded-lg"
+          src={CDN_URL + cloudinaryImageId}
+          loading="lazy"
+          alt="Restaurant Logo"
+        />
+        <span className="absolute w-full h-1/3 bottom-0 bg-linear-to-b from-transparent to-[rgba(0,0,0,0.5)]"></span>
         {aggregatedDiscountInfoV3 && (
           <div className="text-white absolute bottom-2 left-3 font-extrabold text-xs sm:text-sm md:text-base lg:text-lg">
             {aggregatedDiscountInfoV3.header +

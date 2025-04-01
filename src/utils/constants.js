@@ -2,8 +2,7 @@ export const LOGO_URL = "../../images/bhojan-buddy-light.png";
 export const EMPTY_CART_URL = "../../images/empty-cart.png";
 export const OFFLINE = "../../images/offline.png";
 
-export const CDN_URL =
-  "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
+export const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
 
 export const RESTAURANTS_API = navigator.userAgent.includes("Mobile")
   ? `https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.7040592&lng=77.10249019999999`
@@ -12,5 +11,3 @@ export const RESTAURANTS_API = navigator.userAgent.includes("Mobile")
 export const MENU_API = navigator.userAgent.includes("Mobile")
   ? `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId=`
   : `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId=`;
-
-console.log(navigator);

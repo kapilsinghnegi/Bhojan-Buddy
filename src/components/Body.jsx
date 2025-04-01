@@ -20,19 +20,25 @@ const Body = () => {
   }, []);
 
   async function fetchData() {
-    const res = await fetch(RESTAURANTS_API);
-    const data = await res.json();
+    try {
+      const res = await fetch(RESTAURANTS_API);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const data = await res.json();
 
-    const restaurants =
-      data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants;
+      const restaurants =
+        data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants;
 
-    if (restaurants) {
-      setListOfRestaurants(restaurants);
-      setFilteredRestaurants(restaurants);
-    } else {
-      console.error("Restaurants data not found in API response");
-      return null;
+      if (restaurants) {
+        setListOfRestaurants(restaurants);
+        setFilteredRestaurants(restaurants);
+      } else {
+        throw new Error("Restaurants data not found in the API response");
+      }
+    } catch (error) {
+      console.error("Failed to fetch restaurants: ", error);
+      setListOfRestaurants([]);
+      setFilteredRestaurants([]);
     }
   }
 
@@ -57,6 +63,8 @@ const Body = () => {
           <input
             type="text"
             className="search-input sm:text-base text-xs w-5/6 px-2 py-1 sm:px-4 sm:py-2 focus:outline-none focus:ring-0 border-2 rounded-l-md border-blue-500 border-r-transparent caret-blue-500"
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
             placeholder="Search for restaurants"
           />
           <button className="search-btn w-1/5 sm:px-4 sm:py-2 px-2 py-1 sm:text-base text-xs text-white border-r-transparent bg-blue-500 hover:bg-blue-600 hover:border-transparent active:bg-blue-700 font-semibold cursor-pointer border-2 border-blue-500 rounded-r-md">

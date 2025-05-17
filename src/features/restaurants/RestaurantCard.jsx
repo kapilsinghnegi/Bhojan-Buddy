@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
-import { CDN_URL } from "../utils/constants";
+import React from "react";
+import { CDN_URL } from "../../utils/constants";
 
-const RestaurantCard = props => {
-  const { resData } = props;
+const RestaurantCard = ({ resData }) => {
   const {
     avgRatingString: avgRating,
     areaName,
@@ -17,30 +16,30 @@ const RestaurantCard = props => {
   return (
     <div
       data-testid="resCard"
-      className="res-card m-1 p-2 md:m-2 md:p-4 lg:m-4 lg:p-6 w-full max-w-xs md:max-w-sm lg:max-w-md rounded-lg font-semibold flex flex-col gap-y-2 hover:scale-90 transition-transform duration-300"
+      className="res-card m-1 flex w-full max-w-xs flex-col gap-y-2 rounded-lg p-2 font-semibold transition-transform duration-300 hover:scale-90 md:m-2 md:max-w-sm md:p-4 lg:m-4 lg:max-w-md lg:p-6"
     >
-      <div className="relative res-logo w-full rounded-lg bg-cover bg-center bg-gray-200 h-24 md:h-32 lg:h-40">
+      <div className="res-logo relative h-24 w-full rounded-lg bg-gray-200 bg-cover bg-center md:h-32 lg:h-40">
         <img
-          className="object-cover w-full h-full rounded-lg"
+          className="h-full w-full rounded-lg object-cover"
           src={CDN_URL + cloudinaryImageId}
           loading="lazy"
           alt="Restaurant Logo"
         />
-        <span className="absolute w-full h-1/3 bottom-0 bg-linear-to-b from-transparent to-[rgba(0,0,0,0.5)]"></span>
+        <span className="absolute bottom-0 h-1/3 w-full bg-linear-to-b from-transparent to-[rgba(0,0,0,0.5)]"></span>
         {aggregatedDiscountInfoV3 && (
-          <div className="text-white absolute bottom-2 left-3 font-extrabold text-xs sm:text-sm md:text-base lg:text-lg">
+          <div className="absolute bottom-2 left-3 text-xs font-extrabold text-white sm:text-sm md:text-base lg:text-lg">
             {aggregatedDiscountInfoV3.header +
               " " +
               aggregatedDiscountInfoV3.subHeader}
           </div>
         )}
       </div>
-      <h3 className="font-bold text-sm sm:text-base md:text-lg lg:text-xl line-clamp-1">
+      <h3 className="line-clamp-1 text-sm font-bold sm:text-base md:text-lg lg:text-xl">
         {name}
       </h3>
       <div className="flex items-center justify-between">
         <h4 className="flex items-center text-[10px] sm:text-sm md:text-base lg:text-lg">
-          <div className="flex justify-center items-center bg-green-600 sm:p-0.75 md:p-1 p-0.5 rounded-full mr-1">
+          <div className="mr-1 flex items-center justify-center rounded-full bg-green-600 p-0.5 sm:p-0.75 md:p-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-1.5 sm:w-2 md:w-2.5"
@@ -59,10 +58,10 @@ const RestaurantCard = props => {
           {slaString}
         </h4>
       </div>
-      <h4 className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-1">
+      <h4 className="line-clamp-1 text-xs text-gray-500 capitalize sm:text-sm md:text-base lg:text-lg">
         {cuisines.join(", ")}
       </h4>
-      <h4 className="text-gray-500 text-xs sm:text-sm md:text-base lg:text-lg line-clamp-1">
+      <h4 className="line-clamp-1 text-xs text-gray-500 capitalize sm:text-sm md:text-base lg:text-lg">
         {areaName}
       </h4>
     </div>

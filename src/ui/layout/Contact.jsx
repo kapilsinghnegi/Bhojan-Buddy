@@ -2,7 +2,7 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className="container mx-auto px-4 sm:px-8 py-8">
+    <div className="w-full flex-grow px-4 sm:px-8 py-8 mx-auto">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-6">
         Contact Us
       </h1>
@@ -38,7 +38,7 @@ const Contact = () => {
               type="email"
               id="email"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Your Email"
+              placeholder="Email address"
             />
           </div>
           <div className="mb-4">
@@ -57,22 +57,22 @@ const Contact = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+            className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
           >
             Send Message
           </button>
         </form>
 
         {/* Contact Information */}
-        <div className="w-full sm:w-1/2 flex flex-col items-center sm:items-start text-center sm:text-left">
+        <div className="w-full sm:w-1/2 flex flex-col items-center sm:items-start text-center sm:text-left px-10 py-5">
           <h2 className="text-xl sm:text-2xl font-bold mb-4">Get in Touch</h2>
-          <p className="text-sm sm:text-base text-gray-600 mb-2">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-2">
             <strong>Email:</strong> support@bhojanbuddy.com
           </p>
-          <p className="text-sm sm:text-base text-gray-600 mb-2">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-2">
             <strong>Phone:</strong> +91 12345 67890
           </p>
-          <p className="text-sm sm:text-base text-gray-600 mb-2">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-2">
             <strong>Address:</strong> 123 Food Street, Culinary City, India
           </p>
           <div className="flex gap-4 mt-4">

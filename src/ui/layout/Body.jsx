@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { RESTAURANTS_API, OFFLINE } from "../utils/constants.js";
-import Shimmer from "./Shimmer.jsx";
-import RestaurantCard from "./RestaurantCard.jsx";
-import useOnlineStatus from "../utils/useOnlineStatus.js";
-import UserContext from "../utils/UserContext.js";
+import { RESTAURANTS_API, OFFLINE } from "../../utils/constants.js";
+import Shimmer from "../components/Shimmer.jsx";
+import RestaurantCard from "../../features/restaurants/RestaurantCard.jsx";
+import useOnlineStatus from "../../utils/useOnlineStatus.js";
+import UserContext from "../../features/user/UserContext.js";
 import UserOffline from "./UserOffline.jsx";
 
 const Body = () => {
@@ -22,7 +22,6 @@ const Body = () => {
   async function fetchData() {
     try {
       const res = await fetch(RESTAURANTS_API);
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data = await res.json();
 
       const restaurants =
@@ -42,10 +41,10 @@ const Body = () => {
     }
   }
 
-  const searchRestaurants = e => {
+  const searchRestaurants = (e) => {
     e.preventDefault();
-    const filteredRestaurants = listOfRestaurants.filter(res =>
-      res.info.name.toLowerCase().includes(searchText.toLowerCase())
+    const filteredRestaurants = listOfRestaurants.filter((res) =>
+      res.info.name.toLowerCase().includes(searchText.toLowerCase()),
     );
     setFilteredRestaurants(filteredRestaurants);
   };
@@ -58,16 +57,16 @@ const Body = () => {
   // Loading Page
   return listOfRestaurants?.length === 0 ? (
     <>
-      <div className="filter flex flex-col space-y-2 sm:space-y-4 w-11/12 py-0.5 px-2 sm:py-2 sm:px-6 sm:m-4 justify-center items-center">
-        <div className="search-box w-4/5 flex overflow-hidden">
+      <div className="flex w-11/12 flex-col items-center justify-center space-y-2 px-2 py-0.5 filter sm:m-4 sm:space-y-4 sm:px-6 sm:py-2">
+        <div className="search-box flex w-4/5 overflow-hidden">
           <input
             type="text"
-            className="search-input sm:text-base text-xs w-5/6 px-2 py-1 sm:px-4 sm:py-2 focus:outline-none focus:ring-0 border-2 rounded-l-md border-blue-500 border-r-transparent caret-blue-500"
+            className="search-input w-5/6 rounded-l-md border-2 border-blue-500 border-r-transparent px-2 py-1 text-xs caret-blue-500 focus:ring-0 focus:outline-none sm:px-4 sm:py-2 sm:text-base"
             value={searchText}
-            onChange={e => setSearchText(e.target.value)}
+            onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search for restaurants"
           />
-          <button className="search-btn w-1/5 sm:px-4 sm:py-2 px-2 py-1 sm:text-base text-xs text-white border-r-transparent bg-blue-500 hover:bg-blue-600 hover:border-transparent active:bg-blue-700 font-semibold cursor-pointer border-2 border-blue-500 rounded-r-md">
+          <button className="search-btn w-1/5 cursor-pointer rounded-r-md border-2 border-blue-500 border-r-transparent bg-blue-500 px-2 py-1 text-xs font-semibold text-white hover:border-transparent hover:bg-blue-600 active:bg-blue-700 sm:px-4 sm:py-2 sm:text-base">
             Search
           </button>
         </div>
@@ -76,21 +75,21 @@ const Body = () => {
     </>
   ) : (
     // Body Component
-    <div className="body w-full h-auto flex flex-col justify-center items-start">
-      <div className="filter flex flex-col space-y-2 sm:space-y-4 w-11/12 py-0.5 px-2 sm:py-2 sm:px-6 sm:m-4 justify-center items-center">
+    <div className="body flex h-auto w-full flex-col items-start justify-center">
+      <div className="flex w-11/12 flex-col items-center justify-center space-y-2 px-2 py-0.5 filter sm:m-4 sm:space-y-4 sm:px-6 sm:py-2">
         {/* Search Functionality */}
-        <form className="search-box w-4/5 flex overflow-hidden">
+        <form className="search-box flex w-4/5 overflow-hidden">
           <input
             type="text"
             data-testid="searchInput"
-            className="search-input sm:text-base text-xs w-5/6 px-2 py-1 sm:px-4 sm:py-2 focus:outline-none focus:ring-0 border-2 rounded-l-md border-blue-500 border-r-transparent caret-blue-500"
+            className="search-input w-5/6 rounded-l-md border-2 border-blue-500 border-r-transparent px-2 py-1 text-xs caret-blue-500 focus:ring-0 focus:outline-none sm:px-4 sm:py-2 sm:text-base"
             value={searchText}
-            onChange={e => setSearchText(e.target.value)}
+            onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search for restaurants"
           />
           <button
-            className="search-btn w-1/5 sm:px-4 sm:py-2 px-2 py-1 sm:text-base text-xs text-white border-r-transparent bg-blue-500 hover:bg-blue-600 hover:border-transparent active:bg-blue-700 font-semibold cursor-pointer border-2 border-blue-500 rounded-r-md"
-            onClick={e => searchRestaurants(e)}
+            className="search-btn w-1/5 cursor-pointer rounded-r-md border-2 border-blue-500 border-r-transparent bg-blue-700 px-2 py-1 text-xs font-semibold text-white hover:border-transparent hover:bg-blue-600 active:bg-blue-600 sm:px-4 sm:py-2 sm:text-base"
+            onClick={(e) => searchRestaurants(e)}
           >
             Search
           </button>
@@ -98,12 +97,12 @@ const Body = () => {
         <div className="flex items-center font-semibold">
           {/* Top Rated Restaurants */}
           <button
-            className="filter-btn px-3 py-1 text-xs sm:text-base bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-3xl transition-transform transform hover:scale-105 cursor-pointer"
+            className="filter-btn transform cursor-pointer rounded-3xl bg-green-700 px-3 py-1 text-xs text-white transition-transform hover:scale-105 hover:bg-green-600 active:bg-green-800 sm:text-base"
             onClick={() => {
               const filteredList = listOfRestaurants.filter(
-                res =>
+                (res) =>
                   res.info.avgRating > 4 &&
-                  res.info.totalRatingsString.includes("K")
+                  res.info.totalRatingsString.includes("K"),
               );
               setFilteredRestaurants(filteredList);
             }}
@@ -113,14 +112,14 @@ const Body = () => {
 
           {/* Type Username for displaying on nav */}
           <div className="mx-4 hidden sm:inline-block">
-            <label className="font-semibold text-xs sm:text-sm md:text-base lg:text-lg">
+            <label className="text-xs font-semibold sm:text-sm md:text-base lg:text-lg">
               Username:
             </label>
             &nbsp;
             <input
-              className="border-2 border-black rounded-md px-2 py-1 font-semibold text-xs sm:text-sm md:text-base lg:text-lg"
+              className="rounded-md border-2 border-black px-2 py-1 text-xs font-semibold sm:text-sm md:text-base lg:text-lg"
               placeholder="Type a username"
-              onChange={e => {
+              onChange={(e) => {
                 setUserName(e.target.value);
               }}
             />
@@ -128,13 +127,13 @@ const Body = () => {
         </div>
       </div>
       {filteredRestaurants ? (
-        <h1 className="hidden sm:block text-sm sm:text-xl md:text-2xl lg:text-3xl font-semibold px-4 sm:px-12 md:px-16 lg:px-30">
+        <h1 className="hidden px-4 text-sm font-semibold sm:block sm:px-12 sm:text-xl md:px-16 md:text-2xl lg:px-30 lg:text-3xl">
           {filteredRestaurants?.length} restaurants
         </h1>
       ) : null}
       {/* Restaurant Cards Container */}
-      <div className="res-container grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 justify-center lg:px-20 sm:px-10 px-4 w-full">
-        {filteredRestaurants?.map(res => (
+      <div className="res-container grid w-full grid-cols-2 justify-center px-4 sm:grid-cols-3 sm:px-10 lg:px-20 xl:grid-cols-4">
+        {filteredRestaurants?.map((res) => (
           <Link key={res?.info?.id} to={"/restaurants/" + res?.info?.id}>
             <RestaurantCard resData={res} />
           </Link>

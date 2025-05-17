@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import "@testing-library/jest-dom";
-import appStore from "../../utils/appStore";
-import Header from "../Header";
+import appStore from "../../appStore";
+import Header from "./Header";
 
 describe("Header Component Testcases", () => {
   it("Renders Header Component with a login button", () => {
@@ -12,7 +12,7 @@ describe("Header Component Testcases", () => {
         <Provider store={appStore}>
           <Header />
         </Provider>
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     const loginButton = screen.getByRole("button");
@@ -25,10 +25,10 @@ describe("Header Component Testcases", () => {
         <Provider store={appStore}>
           <Header />
         </Provider>
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    const cart = screen.getByText("0");
+    const cart = screen.getByText("(0 items)");
     expect(cart).toBeInTheDocument();
   });
 
@@ -38,10 +38,10 @@ describe("Header Component Testcases", () => {
         <Provider store={appStore}>
           <Header />
         </Provider>
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
-    const cart = screen.getByText("0");
+    const cart = screen.getByText("(0 items)");
     expect(cart).toBeInTheDocument();
   });
 
@@ -51,7 +51,7 @@ describe("Header Component Testcases", () => {
         <Provider store={appStore}>
           <Header />
         </Provider>
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     const loginButton = screen.getByRole("button", { name: "Login" });

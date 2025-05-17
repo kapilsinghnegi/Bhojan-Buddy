@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import ShimmerMenu from "./ShimmerMenu.jsx";
 import RestaurantCategory from "./RestaurantCategory.jsx";
-import { useParams } from "react-router-dom";
-import useRestaurantMenu from "../utils/useRestaurantMenu.js";
-import { CDN_URL } from "../utils/constants.js";
+import useRestaurantMenu from "../../utils/useRestaurantMenu.js";
+import { CDN_URL } from "../../utils/constants.js";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -45,12 +45,15 @@ const RestaurantMenu = () => {
           />
           {/* Menu Header Text Container */}
           <div className="flex flex-col p-4 sm:p-2 sm:m-2 gap-2 sm:static absolute bg-[rgba(0,0,0,0.7)] bottom-0 w-full">
+            {/* Restaurant Name */}
             <h1 className="font-bold text-white text-wrap text-2xl md:text-3xl mb-1 sm:mb-1.5 md:mb-2 text-center sm:text-left">
               {name}
             </h1>
+            {/* Cuisines */}
             <p className="text-gray-300 text-wrap text-sm md:text-base lg:text-lg- text-center sm:text-left">
               {cuisines.join(", ")}
             </p>
+            {/* Ratings and Cost */}
             <p className="text-sm sm:text-base lg:text-lg text-white font-semibold flex items-center justify-center sm:justify-start">
               <span className="flex justify-center items-center bg-green-600 rounded-full lg:mr-2 lg:w-4.5 lg:h-4.5 mr-1.5 w-3.25 h-3.25 sm:w-3.5 sm:h-3.5">
                 <svg
@@ -67,14 +70,16 @@ const RestaurantMenu = () => {
               {avgRating}&nbsp;({totalRatingsString.split(" ")[0]}) •{" "}
               {costForTwoMessage}
             </p>
+            {/* Outlet Details */}
             <p className="text-white font-semibold text-sm sm:text-base lg:text-lg text-center sm:text-left">
               Outlet{" "}
               <span className="text-gray-300 font-normal lg:ml-3 ml-1 sm:ml-2">
                 {areaName}
               </span>
             </p>
+            {/* SLA */}
             <p className="text-white font-semibold text-sm sm:text-base lg:text-lg text-center sm:text-left">
-              {slaString.toLowerCase()}
+              {slaString.toLowerCase() || "25-30 mins"}
             </p>
           </div>
         </div>

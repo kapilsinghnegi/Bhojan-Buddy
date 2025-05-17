@@ -3,11 +3,11 @@ import { act } from "react";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import MOCK_DATA from "../mocks/mockRestaurantMenu.json";
-import appStore from "../../utils/appStore";
-import Header from "../Header";
-import RestaurantMenu from "../RestaurantMenu";
-import Cart from "../Cart";
+import MOCK_DATA from "../../utils/mocks/mockRestaurantMenu.json";
+import appStore from "../../appStore";
+import Header from "../../ui/components/Header";
+import RestaurantMenu from "../menu/RestaurantMenu";
+import Cart from "../cart/Cart";
 
 global.fetch = jest.fn(() => {
   return Promise.resolve({
@@ -21,8 +21,8 @@ describe("Testcases for Cart", () => {
       render(
         <Provider store={appStore}>
           <RestaurantMenu />
-        </Provider>
-      )
+        </Provider>,
+      ),
     );
 
     const accordionHeader = screen.getByText("Recommended (20)");
@@ -34,8 +34,8 @@ describe("Testcases for Cart", () => {
       render(
         <Provider store={appStore}>
           <RestaurantMenu />
-        </Provider>
-      )
+        </Provider>,
+      ),
     );
 
     const accordionHeader = screen.getByText("Recommended (20)");
@@ -51,8 +51,8 @@ describe("Testcases for Cart", () => {
             <Header />
             <RestaurantMenu />
           </Provider>
-        </BrowserRouter>
-      )
+        </BrowserRouter>,
+      ),
     );
 
     const accordionHeader = screen.getByText("Recommended (20)");
@@ -61,10 +61,10 @@ describe("Testcases for Cart", () => {
     const addBtns = screen.getAllByRole("button", { name: "ADD" });
     fireEvent.click(addBtns[0]);
 
-    expect(screen.getByText("1")).toBeInTheDocument();
+    expect(screen.getByText("(1 items)")).toBeInTheDocument();
 
     fireEvent.click(addBtns[1]);
-    expect(screen.getByText("2")).toBeInTheDocument();
+    expect(screen.getByText("(2 items)")).toBeInTheDocument();
   });
 
   it("Add cart items to Cart on click of button", async () => {
@@ -76,8 +76,8 @@ describe("Testcases for Cart", () => {
             <RestaurantMenu />
             <Cart />
           </Provider>
-        </BrowserRouter>
-      )
+        </BrowserRouter>,
+      ),
     );
 
     const accordionHeader = screen.getByText("Veg Pizza (14)");
@@ -100,8 +100,8 @@ describe("Testcases for Cart", () => {
             <RestaurantMenu />
             <Cart />
           </Provider>
-        </BrowserRouter>
-      )
+        </BrowserRouter>,
+      ),
     );
     const accordionHeader = screen.getByText("Veg Pizza (14)");
     fireEvent.click(accordionHeader);
@@ -120,8 +120,8 @@ describe("Testcases for Cart", () => {
             <RestaurantMenu />
             <Cart />
           </Provider>
-        </BrowserRouter>
-      )
+        </BrowserRouter>,
+      ),
     );
     const accordionHeader = screen.getByText("Veg Pizza (14)");
     fireEvent.click(accordionHeader);

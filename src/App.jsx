@@ -2,17 +2,17 @@ import React, { lazy, Suspense, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Provider } from "react-redux";
-import appStore from "./utils/appStore.js";
-import UserContext from "./utils/UserContext.js";
-import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
-import Body from "./components/Body.jsx";
-import Error from "./components/Error.jsx";
-import Contact from "./components/Contact.jsx";
-import RestaurantMenu from "./components/RestaurantMenu.jsx";
+import appStore from "./appStore.js";
+import UserContext from "./features/user/UserContext.js";
+import Header from "./ui/components/Header.jsx";
+import Footer from "./ui/components/Footer.jsx";
+import Body from "./ui/layout/Body.jsx";
+import Error from "./ui/components/Error.jsx";
+import Contact from "./ui/layout/Contact.jsx";
+import RestaurantMenu from "./features/menu/RestaurantMenu.jsx";
 
-const About = lazy(() => import("./components/About.jsx"));
-const Cart = lazy(() => import("./components/Cart.jsx"));
+const About = lazy(() => import("./ui/layout/About.jsx"));
+const Cart = lazy(() => import("./features/cart/Cart.jsx"));
 
 const AppLayout = () => {
   // Authentication
@@ -28,9 +28,9 @@ const AppLayout = () => {
   return (
     <Provider store={appStore}>
       <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-        <div className="app flex flex-col min-h-screen">
+        <div className="app flex min-h-screen flex-col">
           <Header />
-          <div className="flex-grow pt-16 sm:pt-20 md:pt-24">
+          <div className="h-full w-full flex-grow pt-16 sm:pt-20 md:pt-24">
             <Outlet />
           </div>
           <Footer />

@@ -19,3 +19,7 @@
   );
   animation: shimmer 1.5s infinite;
 }
+
+.active {
+  color: #15803d;
+}

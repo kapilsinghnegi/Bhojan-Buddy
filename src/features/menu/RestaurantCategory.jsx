@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ItemList from "./ItemList";
+import ItemList from "../restaurants/ItemList";
 
 const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
   const [isAccordionOpen, setAccordionOpen] = useState(false);
@@ -19,14 +19,26 @@ const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
           {data?.title} ({data?.itemCards?.length})
         </h2>
         <span className="sm:w-8 w-6 flex justify-end">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-5 h-5 sm:w-6 sm:h-6 lg:h-8 lg:w-8"
-          >
-            <path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"></path>
-          </svg>
+          {isAccordionOpen ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-5 h-5 sm:w-6 sm:h-6 lg:h-8 lg:w-8"
+            >
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path d="M11.9999 10.8284L7.0502 15.7782L5.63599 14.364L11.9999 8L18.3639 14.364L16.9497 15.7782L11.9999 10.8284Z"></path>
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-5 h-5 sm:w-6 sm:h-6 lg:h-8 lg:w-8"
+            >
+              <path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"></path>
+            </svg>
+          )}
         </span>
       </div>
       {/* Accordion Body */}

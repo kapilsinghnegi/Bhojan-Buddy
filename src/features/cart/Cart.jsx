@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, removeItem } from "../utils/cartSlice";
-import { CDN_URL, EMPTY_CART_URL } from "../utils/constants";
+import { clearCart, removeItem } from "./cartSlice";
+import { CDN_URL, EMPTY_CART_URL } from "../../utils/constants";
 
 const Cart = () => {
   const [totalAmount, setTotalAmount] = useState(0);
-  const cartItems = useSelector(store => store.cart.items);
+  const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,40 +22,49 @@ const Cart = () => {
   const handleClear = () => {
     dispatch(clearCart());
   };
-  const handleRemove = itemId => {
+  const handleRemove = (itemId) => {
     dispatch(removeItem(itemId));
   };
 
   return (
-    <div className="cart m-auto w-3/5 p-5 flex flex-col items-center">
+    <div className="cart mx-auto flex w-full max-w-3xl flex-col items-center p-2 sm:p-5">
+      {/* Empty Cart  */}
       {cartItems.length === 0 ? (
-        <div className="flex flex-col justify-center items-center">
-          <img src={EMPTY_CART_URL} className="w-50" />
-          <h1 className="text-2xl font-semibold mb-3">Your cart is empty</h1>
-          <h4 className="text-center font-semibold">
+        <div className="flex w-full flex-col items-center justify-center">
+          <img src={EMPTY_CART_URL} className="mb-4 w-40 sm:w-52" />
+          <h1 className="mb-3 text-center text-xl font-semibold sm:text-2xl">
+            Your cart is empty
+          </h1>
+          <h4 className="text-center text-sm font-semibold sm:text-base">
             Looks like you haven't added anything to the cart. Go ahead and
             explore
           </h4>
         </div>
       ) : (
-        <div className="cartItems w-full m-auto p-4">
-          <h1 className="text-3xl text-center font-semibold mb-4">Cart</h1>
-          <ul className="item-list flex flex-col">
-            {cartItems.map(item => (
+        <div className="cartItems m-auto w-full p-2 sm:p-4">
+          <h1 className="mb-4 text-center text-2xl font-semibold sm:text-3xl">
+            Cart
+          </h1>
+          <ul className="item-list flex flex-col gap-2">
+            {cartItems.map((item) => (
               <li
-                className="first:border-t-2 border-b-2 border-gray-200 py-5 flex items-center px-4 gap-2"
+                className="flex flex-row items-center gap-2 border-b-2 border-gray-200 px-2 py-3 first:border-t-2 sm:px-4 sm:py-5"
                 key={item?.card?.info?.id}
                 data-testid="cartItem"
               >
+                {/* Item image */}
                 <img
-                  className="rounded-lg w-14 h-14"
+                  className="h-14 w-14 rounded-lg sm:h-16 sm:w-16"
                   src={CDN_URL + item?.card?.info?.imageId}
+                  alt={item?.card?.info?.name}
                 />
-                <div className="w-3/4 select-none flex items-center justify-between">
-                  <p className="font-medium text-xl ml-8 line-clamp-1">
+                <div className="flex w-full flex-row items-center justify-between select-none sm:w-3/4">
+                  {/* Item Name */}
+                  <p className="ml-2 line-clamp-1 text-left text-base font-medium sm:text-xl">
                     {item?.card?.info?.name}
                   </p>
-                  <p className="itemPrice font-medium">
+                  {/* Item Price */}
+                  <p className="itemPrice ml-4 text-sm font-medium sm:text-base">
                     ₹{" "}
                     {(
                       (item?.card?.info.price ||
@@ -63,8 +72,9 @@ const Cart = () => {
                     ).toFixed(2)}
                   </p>
                 </div>
+                {/* Remove Item */}
                 <button
-                  className="p-1 w-5 rounded-3xl bg-black hover:bg-red-600 ml-5"
+                  className="ml-2 w-7 rounded-3xl bg-black p-1 hover:bg-red-700 sm:w-8"
                   onClick={() => handleRemove(item?.card?.info?.id)}
                   data-testid="removeBtn"
                 >
@@ -80,7 +90,7 @@ const Cart = () => {
               </li>
             ))}
           </ul>
-          <div className="flex items-center justify-between font-semibold px-28 py-2 border-2 border-gray-300 mt-2 text-xl">
+          <div className="mt-2 flex flex-row items-center justify-between gap-2 border-2 border-gray-300 px-4 py-2 text-base font-semibold sm:px-28 sm:text-xl">
             <span>Total Amount:</span>
             <span data-testid="totalAmount">₹ {totalAmount}</span>
           </div>
@@ -88,7 +98,7 @@ const Cart = () => {
       )}
       {cartItems.length > 0 && (
         <button
-          className="px-2 py-1 border border-black font-semibold rounded-sm bg-transparent hover:bg-red-500 hover:text-white hover:border-white"
+          className="mt-4 rounded-sm border border-black bg-transparent px-3 py-2 text-sm font-semibold hover:border-white hover:bg-red-700 hover:text-white sm:text-base"
           onClick={handleClear}
         >
           Clear Cart

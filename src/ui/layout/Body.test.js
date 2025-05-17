@@ -1,9 +1,10 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import Body from "../Body";
-import MOCK_DATA from "../mocks/mockRestaurantListData.json";
 import { act } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+
+import Body from "./Body";
+import MOCK_DATA from "../../utils/mocks/mockRestaurantListData.json";
 
 global.fetch = jest.fn(() => {
   return Promise.resolve({
@@ -19,8 +20,8 @@ describe("Body Component Testcases", () => {
       render(
         <BrowserRouter>
           <Body />
-        </BrowserRouter>
-      )
+        </BrowserRouter>,
+      ),
     );
 
     const resCardsBeforeSearch = screen.getAllByTestId("resCard");
@@ -35,17 +36,18 @@ describe("Body Component Testcases", () => {
       },
     });
     fireEvent.click(searchButton);
-    const resCardsAfterSearch = screen.getAllByTestId("resCard");
 
+    const resCardsAfterSearch = screen.getAllByTestId("resCard");
     expect(resCardsAfterSearch.length).toBe(5);
   });
+
   it("Filters Top-rated restaurant on click of button", async () => {
     await act(async () =>
       render(
         <BrowserRouter>
           <Body />
-        </BrowserRouter>
-      )
+        </BrowserRouter>,
+      ),
     );
 
     const resCardsBeforeFilter = screen.getAllByTestId("resCard");
@@ -54,11 +56,9 @@ describe("Body Component Testcases", () => {
     const topRatedBtn = screen.getByRole("button", {
       name: "Top Rated Restaurant",
     });
-
     fireEvent.click(topRatedBtn);
 
     const resCardsAfterFilter = screen.getAllByTestId("resCard");
-
     expect(resCardsAfterFilter.length).toBe(13);
   });
 });

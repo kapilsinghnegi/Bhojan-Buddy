@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { RESTAURANTS_API, OFFLINE } from "../../utils/constants.js";
+import { RESTAURANTS_API } from "../../utils/constants.js";
 import Shimmer from "../components/Shimmer.jsx";
 import RestaurantCard from "../../features/restaurants/RestaurantCard.jsx";
 import useOnlineStatus from "../../utils/useOnlineStatus.js";

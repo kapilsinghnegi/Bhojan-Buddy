@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ShimmerMenu from "./ShimmerMenu.jsx";
 import RestaurantCategory from "./RestaurantCategory.jsx";
 import useRestaurantMenu from "../../utils/useRestaurantMenu.js";
 import { CDN_URL } from "../../utils/constants.js";
+import { ChevronLeft } from "lucide-react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -26,39 +27,42 @@ const RestaurantMenu = () => {
   const categories = resInfo?.cards[
     resInfo.cards.length - 1
   ]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
-    category =>
+    (category) =>
       category?.card?.card?.["@type"] ===
-      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
   );
 
   return (
     // Container
-    <div className="container flex w-full h-full justify-center items-center bg-white p-2 lg:p-4 m-auto">
+    <div className="container m-auto flex h-full w-full items-center justify-center bg-white p-2 lg:p-4">
       {/* Menu */}
-      <div className="menu w-3/4 h-full flex flex-col bg-gray-50">
+      <div className="menu flex h-full w-3/4 flex-col bg-gray-50">
+        <Link to="/">
+          <ChevronLeft className="mb-2" size={20} />
+        </Link>
         {/* Menu Header */}
-        <div className="menu-header w-full h-fit flex flex-col sm:flex-row bg-black select-none relative sm:static">
+        <div className="menu-header relative flex h-fit w-full flex-col bg-black select-none sm:static sm:flex-row">
           <img
-            className="w-full sm:w-44 lg:w-52 object-cover"
+            className="w-full object-cover sm:w-44 lg:w-52"
             src={CDN_URL + cloudinaryImageId}
             alt="Restaurant Image"
           />
           {/* Menu Header Text Container */}
-          <div className="flex flex-col p-4 sm:p-2 sm:m-2 gap-2 sm:static absolute bg-[rgba(0,0,0,0.7)] bottom-0 w-full">
+          <div className="absolute bottom-0 flex w-full flex-col gap-2 bg-[rgba(0,0,0,0.7)] p-4 sm:static sm:m-2 sm:p-2">
             {/* Restaurant Name */}
-            <h1 className="font-bold text-white text-wrap text-2xl md:text-3xl mb-1 sm:mb-1.5 md:mb-2 text-center sm:text-left">
+            <h1 className="mb-1 text-center text-2xl font-bold text-wrap text-white sm:mb-1.5 sm:text-left md:mb-2 md:text-3xl">
               {name}
             </h1>
             {/* Cuisines */}
-            <p className="text-gray-300 text-wrap text-sm md:text-base lg:text-lg- text-center sm:text-left">
+            <p className="lg:text-lg- text-center text-sm text-wrap text-gray-300 sm:text-left md:text-base">
               {cuisines.join(", ")}
             </p>
             {/* Ratings and Cost */}
-            <p className="text-sm sm:text-base lg:text-lg text-white font-semibold flex items-center justify-center sm:justify-start">
-              <span className="flex justify-center items-center bg-green-600 rounded-full lg:mr-2 lg:w-4.5 lg:h-4.5 mr-1.5 w-3.25 h-3.25 sm:w-3.5 sm:h-3.5">
+            <p className="flex items-center justify-center text-sm font-semibold text-white sm:justify-start sm:text-base lg:text-lg">
+              <span className="mr-1.5 flex h-3.25 w-3.25 items-center justify-center rounded-full bg-green-600 sm:h-3.5 sm:w-3.5 lg:mr-2 lg:h-4.5 lg:w-4.5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-2.25 h-2.25 sm:w-2.5 sm:h-2.5 lg:h-3.25 lg:w-3.25"
+                  className="h-2.25 w-2.25 sm:h-2.5 sm:w-2.5 lg:h-3.25 lg:w-3.25"
                   viewBox="0 0 26 26"
                 >
                   <path
@@ -71,20 +75,20 @@ const RestaurantMenu = () => {
               {costForTwoMessage}
             </p>
             {/* Outlet Details */}
-            <p className="text-white font-semibold text-sm sm:text-base lg:text-lg text-center sm:text-left">
+            <p className="text-center text-sm font-semibold text-white sm:text-left sm:text-base lg:text-lg">
               Outlet{" "}
-              <span className="text-gray-300 font-normal lg:ml-3 ml-1 sm:ml-2">
+              <span className="ml-1 font-normal text-gray-300 sm:ml-2 lg:ml-3">
                 {areaName}
               </span>
             </p>
             {/* SLA */}
-            <p className="text-white font-semibold text-sm sm:text-base lg:text-lg text-center sm:text-left">
+            <p className="text-center text-sm font-semibold text-white sm:text-left sm:text-base lg:text-lg">
               {slaString.toLowerCase() || "25-30 mins"}
             </p>
           </div>
         </div>
         {/* Menu Body */}
-        <div className="menu-body shadow-md flex flex-col p-2 w-full">
+        <div className="menu-body flex w-full flex-col p-2 shadow-md">
           {categories.map((category, index) => (
             <RestaurantCategory
               key={category?.card?.card?.categoryId}

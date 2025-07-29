@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { MENU_API } from "./constants.js";
 
-const useRestaurantMenu = resId => {
+const useRestaurantMenu = (resId) => {
   const [resInfo, setResInfo] = useState(null);
 
   useEffect(() => {

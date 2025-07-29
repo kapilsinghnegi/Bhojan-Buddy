@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { RESTAURANTS_API } from "../../utils/constants.js";
 import Shimmer from "../components/Shimmer.jsx";
 import RestaurantCard from "../../features/restaurants/RestaurantCard.jsx";
 import useOnlineStatus from "../../utils/useOnlineStatus.js";
 import UserContext from "../../features/user/UserContext.js";
 import UserOffline from "./UserOffline.jsx";
+import { RESTAURANTS_API } from "../../utils/constants.js";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);

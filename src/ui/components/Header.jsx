@@ -4,31 +4,32 @@ import { useSelector } from "react-redux";
 import { LOGO_URL } from "../../utils/constants.js";
 import UserContext from "../../features/user/UserContext.js";
 import useOnlineStatus from "../../utils/useOnlineStatus.js";
+import { MdShoppingCart } from "react-icons/md";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
   const onlineStatus = useOnlineStatus();
   const { loggedInUser } = useContext(UserContext);
-  const cartItems = useSelector(store => store.cart.items);
+  const cartItems = useSelector((store) => store.cart.items);
 
   const homePageReload = () => {
     window.location.href = "/";
   };
 
   return (
-    <div className="header fixed top-0 left-0 z-10 flex flex-nowrap justify-between items-center p-2 sm:p-3 w-full shadow-md bg-white">
-      <div className="logo-container w-1/12 sm:w-16 min-w-[36px]">
+    <div className="header fixed top-0 left-0 z-999 flex w-full flex-nowrap items-center justify-between bg-white p-2 shadow-md sm:p-3">
+      <div className="logo-container w-1/12 min-w-[36px] sm:w-16">
         <Link to="/" onClick={homePageReload}>
           <img
-            className="logo w-4/5 sm:w-3/4 md:w-full mx-2 sm:mx-5"
+            className="logo mx-2 w-4/5 sm:mx-5 sm:w-3/4 md:w-full"
             src={LOGO_URL}
             alt="Logo"
           />
         </Link>
       </div>
-      <div className="nav-items w-5/6 sm:w-11/12 flex justify-end">
-        <ul className="flex flex-wrap font-medium items-center justify-end p-1 m-1 space-x-2 text-xs sm:space-x-4 sm:text-sm md:space-x-6 md:text-base lg:space-x-8 lg:text-lg">
-          <li className="font-semibold text-black hidden md:inline-block md:mr-10 lg:mr-20">
+      <div className="nav-items flex w-5/6 justify-end sm:w-11/12">
+        <ul className="m-1 flex flex-wrap items-center justify-end space-x-2 p-1 text-xs font-medium sm:space-x-4 sm:text-sm md:space-x-6 md:text-base lg:space-x-8 lg:text-lg">
+          <li className="hidden font-semibold text-black md:mr-10 md:inline-block lg:mr-20">
             Hello,&nbsp;{loggedInUser}!
           </li>
           {/* Home */}
@@ -46,28 +47,20 @@ const Header = () => {
             <NavLink to="/contact">Contact</NavLink>
           </li>
           {/* Cart */}
-          <li className="hover:underline flex items-center">
-            <NavLink to="/cart" className="peer">
+          <li className="flex items-center hover:underline">
+            <NavLink to="/cart" className="peer relative">
               <span className="sr-only">Cart</span>
-              <svg
-                className="sm:w-4 md:w-4.75 w-3.75 lg:w-5.5 not-sr-only"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path fill="none" d="M0 0h24v24H0z"></path>
-                <path d="M4.00436 6.41686L0.761719 3.17422L2.17593 1.76001L5.41857 5.00265H20.6603C21.2126 5.00265 21.6603 5.45037 21.6603 6.00265C21.6603 6.09997 21.6461 6.19678 21.6182 6.29L19.2182 14.29C19.0913 14.713 18.7019 15.0027 18.2603 15.0027H6.00436V17.0027H17.0044V19.0027H5.00436C4.45207 19.0027 4.00436 18.5549 4.00436 18.0027V6.41686ZM5.50436 23.0027C4.67593 23.0027 4.00436 22.3311 4.00436 21.5027C4.00436 20.6742 4.67593 20.0027 5.50436 20.0027C6.33279 20.0027 7.00436 20.6742 7.00436 21.5027C7.00436 22.3311 6.33279 23.0027 5.50436 23.0027ZM17.5044 23.0027C16.6759 23.0027 16.0044 22.3311 16.0044 21.5027C16.0044 20.6742 16.6759 20.0027 17.5044 20.0027C18.3328 20.0027 19.0044 20.6742 19.0044 21.5027C19.0044 22.3311 18.3328 23.0027 17.5044 23.0027Z"></path>
-              </svg>
+              <MdShoppingCart className="not-sr-only size-4 md:size-6" />
+              <span className="absolute top-0 -right-0.5 sm:-right-1 flex size-2 sm:size-3 items-center justify-center rounded-full border bg-zinc-50 font-bold text-black peer-[.active]:text-green-700 sm:text-[8px] text-[5px]">
+                {cartItems.length}
+              </span>
             </NavLink>
-            <span className="font-bold text-[8px] sm:text-xs text-black peer-[.active]:text-green-700">
-              ({cartItems.length} items)
-            </span>
           </li>
           {/* Login Button */}
           <li>
             <Link to="/">
               <button
-                className={`login rounded-md flex justify-center items-center text-[10px] px-1.5 py-0.75 sm:px-2 sm:py-1 sm:text-xs md:px-2.5 md:py-1.25 md:text-sm lg:px-3 lg:py-1.5 lg:text-base text-white ${
+                className={`login flex items-center justify-center rounded-md px-1.5 py-0.75 text-[10px] text-white sm:px-2 sm:py-1 sm:text-xs md:px-2.5 md:py-1.25 md:text-sm lg:px-3 lg:py-1.5 lg:text-base ${
                   btnName === "Login"
                     ? "bg-green-700 hover:bg-green-600"
                     : "bg-red-600 hover:bg-red-700"
@@ -83,7 +76,7 @@ const Header = () => {
             </Link>
           </li>
           {/* Online Status */}
-          <span className="hover:animate-ping text-xs sm:text-sm md:text-base select-none hidden sm:inline">
+          <span className="hidden text-xs select-none hover:animate-ping sm:inline sm:text-sm md:text-base">
             {onlineStatus ? "🟢" : "🔴"}
           </span>
         </ul>

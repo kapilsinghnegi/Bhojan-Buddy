@@ -7,6 +7,6 @@ export const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
 const lat = 28.7040592;
 const lng = 77.10249019999999;
 
-export const RESTAURANTS_API = `https://bhojan-buddy-server.onrender.com/api/restaurants?lat=${lat}&lng=${lng}`;
+export const RESTAURANTS_API = `${import.meta.env.VITE_RESTAURANTS_API}?lat=${lat}&lng=${lng}`;
 
-export const MENU_API = `https://bhojan-buddy-server.onrender.com/api/menu?lat=${lat}&lng=${lng}&restaurantId=`;
+export const MENU_API = `${import.meta.env.VITE_MENU_API}?lat=${lat}&lng=${lng}&restaurantId=`;

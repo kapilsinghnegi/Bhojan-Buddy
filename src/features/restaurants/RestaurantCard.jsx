@@ -28,9 +28,8 @@ const RestaurantCard = ({ resData }) => {
         <span className="absolute bottom-0 h-1/3 w-full bg-linear-to-b from-transparent to-[rgba(0,0,0,0.5)]"></span>
         {aggregatedDiscountInfoV3 && (
           <div className="absolute bottom-2 left-3 text-xs font-extrabold text-white sm:text-sm md:text-base lg:text-lg">
-            {aggregatedDiscountInfoV3.header +
-              " " +
-              aggregatedDiscountInfoV3.subHeader}
+            {aggregatedDiscountInfoV3?.header}{" "}
+            {aggregatedDiscountInfoV3?.subHeader}
           </div>
         )}
       </div>

@@ -36,9 +36,9 @@ const RestaurantMenu = () => {
     // Container
     <div className="container m-auto flex h-full w-full items-center justify-center bg-white p-2 lg:p-4">
       {/* Menu */}
-      <div className="menu flex h-full w-3/4 flex-col bg-gray-50">
-        <Link to="/">
-          <ChevronLeft className="mb-2" size={20} />
+      <div className="menu relative h-full w-3/4 flex-col">
+        <Link to="/" className="absolute top-1 left-1 p-0.75 rounded-full bg-white sm:p-2 hover:bg-gray-100 z-100">
+          <ChevronLeft className="cursor-pointer" size={20} />
         </Link>
         {/* Menu Header */}
         <div className="menu-header relative flex h-fit w-full flex-col bg-black select-none sm:static sm:flex-row">
